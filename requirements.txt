@@ -1,0 +1,10 @@
+numpy
+pandas
+psycopg2
+scikit-learn==1.2.1
+xgboost
+plotly
+matplotlib
+seaborn
+streamlit
+requests==2.31.0
