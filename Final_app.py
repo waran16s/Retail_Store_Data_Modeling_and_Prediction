@@ -130,7 +130,9 @@ class App:
                 # Stream the file from Google Drive
                 response = requests.get(model_file_url, stream=True)
                 if response.status_code != 200:
-                    raise ValueError(f"Failed to download the model file: {response.status_code}")
+                   #raise ValueError(f"Failed to download the model file: {response.status_code}")#
+                   st.error(f"Failed to download the model file: HTTP {response.status_code}")
+                    st.write(response.content.decode())  # Display the content to debug
 
                 # Load the model directly from the response content
                 model = pickle.loads(response.content)
