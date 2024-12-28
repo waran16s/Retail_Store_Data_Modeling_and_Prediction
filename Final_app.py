@@ -1,5 +1,6 @@
 import os
 import requests
+import gdown
 import pickle
 import sklearn
 import streamlit as st
@@ -125,17 +126,22 @@ class App:
                     raise ValueError("MODEL_FILE_ID not found in environment variables.")
 
                 # Generate the Google Drive download URL
-                model_file_url = f"https://drive.google.com/uc?export=download&id={model_file_id}"
+                model_file_url = f"https://drive.google.com/uc?id={model_file_id}"
 
-                # Stream the file from Google Drive
-                response = requests.get(model_file_url, stream=True)
-                if response.status_code != 200:
-                   #raise ValueError(f"Failed to download the model file: {response.status_code}")#
-                   st.error(f"Failed to download the model file: HTTP {response.status_code}")
-                   st.write(response.content.decode())  # Display the content to debug
+                # # Stream the file from Google Drive
+                # response = requests.get(model_file_url, stream=True)
+                # if response.status_code != 200:
+                #    raise ValueError(f"Failed to download the model file: {response.status_code}")
 
-                # Load the model directly from the response content
-                model = pickle.loads(response.content)
+                # # Load the model directly from the response content
+                # model = pickle.loads(response.content)
+                
+                # Download the model directly into memory
+                response = gdown.download(model_file_url, quiet=False)
+
+                # Load the model
+                with open(response, "rb") as f:
+                    model = pickle.load(f)
 
 
             col1, col2, col3 = st.columns([10, 1, 10])

@@ -9,3 +9,4 @@ streamlit
 streamlit-option-menu
 streamlit-extras
 requests==2.31.0
+gdown
