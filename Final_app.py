@@ -1,4 +1,5 @@
 import os
+import requests
 import pickle
 import sklearn
 import streamlit as st
